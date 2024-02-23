@@ -24,4 +24,4 @@ pnpm-debug.log*
 .prettierrc
 
 # vscode config files
-.vscode/
+.vscode/*
