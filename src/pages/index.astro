@@ -1,0 +1,17 @@
+---
+import Terminal from "../components/Terminal";
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>ks-Terminal</title>
+  </head>
+  <body class="theme-default flex min-h-screen bg-skin-background/90">
+    <Terminal client:only="solid-js" />
+  </body>
+</html>
