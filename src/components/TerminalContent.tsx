@@ -6,61 +6,145 @@ import {
   runWithOwner,
   createEffect,
   on,
+  onMount,
+  onCleanup,
 } from "solid-js";
-import TerminalInputArea from "./TerminalInputArea";
-import TerminalCL from "./TerminalCL";
+import TerminalCli from "./TerminalCli";
 import History from "./commands/History";
-import { setTheme, themes, themesDict } from "../hooks/themeHook";
+import Undefined from "./commands/Undefined";
+import Themes from "./commands/Themes";
+import Help from "./commands/Help";
+import TerminalBanner from "./TerminalBanner";
+import About from "./commands/About";
+import Contacts from "./commands/Contacts";
 
 interface Props {
   scrollIntoView: () => void;
 }
 
 const TerminalContent = (props: Props) => {
+  const [input, setInput] = createSignal("");
+  const [pointer, setPointer] = createSignal(0);
   const [elems, setElems] = createSignal<JSXElement[]>([]);
-  const commandList: string[] = [];
+
+  const inputList: string[] = [];
   const owner = getOwner();
+
+  onMount(() => {
+    window.addEventListener("keydown", keyHandler);
+  });
+
+  onCleanup(() => {
+    window.removeEventListener("keydown", keyHandler);
+  });
 
   createEffect(on(elems, () => props.scrollIntoView()));
 
   function onEnterPressed(input: string) {
-    const tokens = input.split(" ");
+    inputList.push(input);
+    setPointer(inputList.length);
+    setInput("");
+
+    const tokens = input.split(" "); // split input into tokens (format: <command> <args>)
     const command = tokens[0]; // first token is command
-    commandList.push(input);
-    if (command === "clear" && tokens.length === 1) setElems([]);
-    else if (command === "theme") {
-      if (
-        tokens.length === 2 &&
-        themesDict[tokens[1] as keyof typeof themesDict]
-      ) {
-        setTheme(tokens[1]);
-      } else setElems([...elems(), runWithOwner(owner, () => getElem(input))]);
-    } else setElems([...elems(), runWithOwner(owner, () => getElem(input))]);
+    const args = tokens.slice(1);
+
+    if (command === "clear" && args.length === 0) setElems([]);
+    else
+      setElems([...elems(), runWithOwner(owner, () => getElem(command, args))]);
   }
 
-  function getElem(command: string) {
+  function keyHandler(event: KeyboardEvent) {
+    event.preventDefault();
+    const key = event.key;
+    const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    const isValidChar =
+      (key >= "a" && key <= "z") ||
+      (key >= "A" && key <= "Z") ||
+      (key >= "0" && key <= "9") ||
+      format.test(key);
+
+    if (key.length === 1 && isValidChar) setInput((prev) => prev + event.key);
+    else if (key === "Enter" && input().trim().length > 0)
+      onEnterPressed(input());
+    else if (key === "Backspace")
+      setInput((prev) => prev.slice(0, prev.length - 1));
+    else if (key === "ArrowUp") {
+      if (pointer() > 0) {
+        setPointer(pointer() - 1);
+        setInput(inputList[pointer()]);
+      }
+    } else if (key === "ArrowDown") {
+      if (pointer() === inputList.length) setInput("");
+      else if (pointer() < inputList.length) {
+        setPointer(pointer() + 1);
+        setInput(pointer() < inputList.length ? inputList[pointer()] : "");
+      }
+    }
+  }
+
+  function getElem(command: string, args: string[]) {
     const cl = (
-      <TerminalCL animate={false}>
-        <span class="text-skin-command">{command}</span>
-      </TerminalCL>
+      <TerminalCli>
+        <span class="text-skin-command">
+          {command} {args}
+        </span>
+      </TerminalCli>
     );
 
     switch (command) {
+      case "about":
+        return (
+          <>
+            {cl}
+            <About></About>
+          </>
+        );
+      case "banner":
+        return (
+          <>
+            {cl}
+            <TerminalBanner></TerminalBanner>
+          </>
+        );
+      case "contacts":
+        return (
+          <>
+            {cl}
+            <Contacts></Contacts>
+          </>
+        );
+      case "help":
+        return (
+          <>
+            {cl}
+            <Help></Help>
+          </>
+        );
       case "history":
         return (
           <>
             {cl}
-            <History commands={commandList}></History>
+            <History commands={inputList}></History>
           </>
         );
+      case "themes":
+        if (args.length <= 1)
+          return (
+            <>
+              {cl}
+              {args.length === 1 ? (
+                <Themes theme={args[0]}></Themes>
+              ) : (
+                <Themes></Themes>
+              )}
+            </>
+          );
       default:
         return (
           <>
             {cl}
-            <span class="mb-4 text-skin-text">
-              Unable to find command:{" "}
-              <span class="text-skin-command">{command}</span>
-            </span>
+            <Undefined command={command}></Undefined>
           </>
         );
     }
@@ -68,15 +152,19 @@ const TerminalContent = (props: Props) => {
 
   return (
     <>
-      <div id="output" class="flex flex-col">
+      <div
+        id="output"
+        class="flex flex-col space-y-4"
+        classList={{ "mb-4": elems().length > 0 }}
+      >
         <For each={elems()}>{(elem) => elem}</For>
       </div>
-      <TerminalCL animate={true}>
-        <TerminalInputArea onEnterPressed={onEnterPressed} />
-        <span class="top-0 w-[0.625rem] animate-blink border border-skin-caret bg-skin-caret text-skin-caret">
+      <TerminalCli animate={true}>
+        <span class="whitespace-pre text-skin-caret">{input()}</span>
+        <span class="animate-blink border border-skin-caret bg-skin-caret text-skin-caret">
           .
         </span>
-      </TerminalCL>
+      </TerminalCli>
     </>
   );
 };

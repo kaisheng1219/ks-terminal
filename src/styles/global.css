@@ -10,6 +10,7 @@
     --color-cl-path: 255 198 0;
     --color-border: 0 0 0;
     --color-text: 255 255 255;
+    --color-text-second: 114 120 78;
     --color-text-command: 114 220 78;
     --color-text-cl: 0 0 0;
   }
@@ -20,6 +21,7 @@
     --color-cl-path: 255 198 0;
     --color-border: 0 0 0;
     --color-text: 255 255 255;
+    --color-text-second: 114 120 78;
     --color-text-command: 114 220 78;
     --color-text-cl: 0 0 0;
   }
@@ -30,6 +32,7 @@
     --color-cl-path: 150 198 0;
     --color-border: 0 0 0;
     --color-text: 100 255 255;
+    --color-text-second: 114 120 78;
     --color-text-command: 224 22 230;
     --color-text-cl: 0 0 0;
   }

@@ -11,7 +11,9 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <title>ks-Terminal</title>
   </head>
-  <body class="theme-default flex min-h-screen bg-skin-background/90">
+  <body
+    class="theme-default flex max-h-screen min-h-screen bg-skin-background/90"
+  >
     <Terminal client:only="solid-js" />
   </body>
 </html>
