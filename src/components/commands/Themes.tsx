@@ -1,5 +1,6 @@
 import { For } from "solid-js";
-import { setTheme, themesDict } from "../../hooks/themeHook";
+import { setTheme } from "../../hooks/themeHook";
+import { themesDict } from "./Commands";
 
 interface ThemeProps {
   theme?: string;

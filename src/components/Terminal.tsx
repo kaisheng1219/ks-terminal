@@ -1,7 +1,8 @@
 import TerminalBody from "./TerminalBody";
 import TerminalFrame from "./TerminalFrame";
-import { theme, themesDict } from "../hooks/themeHook";
+import { theme } from "../hooks/themeHook";
 import { createEffect } from "solid-js";
+import { themesDict } from "./commands/Commands";
 
 const Terminal = () => {
   createEffect(() => {

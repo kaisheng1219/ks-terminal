@@ -17,6 +17,7 @@ import Help from "./commands/Help";
 import TerminalBanner from "./TerminalBanner";
 import About from "./commands/About";
 import Contacts from "./commands/Contacts";
+import Projects from "./commands/Projects";
 
 interface Props {
   scrollIntoView: () => void;
@@ -92,62 +93,41 @@ const TerminalContent = (props: Props) => {
       </TerminalCli>
     );
 
+    let outElem;
+
     switch (command) {
       case "about":
-        return (
-          <>
-            {cl}
-            <About></About>
-          </>
-        );
+        outElem = <About></About>;
+        break;
       case "banner":
-        return (
-          <>
-            {cl}
-            <TerminalBanner></TerminalBanner>
-          </>
-        );
+        outElem = <TerminalBanner></TerminalBanner>;
+        break;
       case "contacts":
-        return (
-          <>
-            {cl}
-            <Contacts></Contacts>
-          </>
-        );
+        outElem = <Contacts platform={args[0]}></Contacts>;
+        break;
       case "help":
-        return (
-          <>
-            {cl}
-            <Help></Help>
-          </>
-        );
+        outElem = <Help></Help>;
+        break;
       case "history":
-        return (
-          <>
-            {cl}
-            <History commands={inputList}></History>
-          </>
-        );
+        outElem = <History commands={inputList}></History>;
+        break;
+      case "projects":
+        outElem = <Projects projectIndex={args[0]}></Projects>;
+        break;
       case "themes":
-        if (args.length <= 1)
-          return (
-            <>
-              {cl}
-              {args.length === 1 ? (
-                <Themes theme={args[0]}></Themes>
-              ) : (
-                <Themes></Themes>
-              )}
-            </>
-          );
+        outElem = <Themes theme={args[0]}></Themes>;
+        break;
       default:
-        return (
-          <>
-            {cl}
-            <Undefined command={command}></Undefined>
-          </>
-        );
+        outElem = <Undefined command={command}></Undefined>;
+        break;
     }
+
+    return (
+      <>
+        {cl}
+        {outElem}
+      </>
+    );
   }
 
   return (
