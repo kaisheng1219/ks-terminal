@@ -19,10 +19,9 @@ export const platforms = [
 
 export const themesDict = {
   default: "theme-default",
-  dark: "theme-dark",
-  light: "theme-light",
   alien: "theme-alien",
-  red: "theme-red",
+  adventure: "theme-adventure",
+  elementary: "theme-elementary",
 };
 
 export const projects = [

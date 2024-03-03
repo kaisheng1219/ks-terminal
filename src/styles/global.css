@@ -4,36 +4,58 @@
 
 @layer base {
   :root {
-    --color-background: 30 51 70;
-    --color-caret: 255 198 0;
-    --color-cl-user: 20 120 219;
-    --color-cl-path: 255 198 0;
+    --color-background: 0 0 0;
+    --color-caret: 246 244 247;
+    --color-cl-user: 85 85 246;
+    --color-cl-path: 246 244 247;
     --color-border: 0 0 0;
-    --color-text: 255 255 255;
-    --color-text-second: 114 120 78;
-    --color-text-command: 114 220 78;
+    --color-text: 246 244 247;
+    --color-text-second: 138 252 253;
+    --color-text-command: 138 252 110;
     --color-text-cl: 0 0 0;
   }
   .theme-default {
-    --color-background: 30 51 70;
-    --color-caret: 255 198 0;
-    --color-cl-user: 20 120 219;
-    --color-cl-path: 255 198 0;
+    --color-background: 0 0 0;
+    --color-caret: 246 244 247;
+    --color-cl-user: 85 85 246;
+    --color-cl-path: 246 244 247;
     --color-border: 0 0 0;
-    --color-text: 255 255 255;
-    --color-text-second: 114 120 78;
-    --color-text-command: 114 220 78;
+    --color-text: 246 244 247;
+    --color-text-second: 138 252 253;
+    --color-text-command: 138 252 110;
     --color-text-cl: 0 0 0;
   }
-  .theme-red {
-    --color-background: 125 51 70;
-    --color-caret: 128 198 0;
-    --color-cl-user: 20 120 20;
-    --color-cl-path: 150 198 0;
+  .theme-alien {
+    --color-background: 1 35 64;
+    --color-caret: 69 196 177;
+    --color-cl-user: 19 102 138;
+    --color-cl-path: 69 196 177;
     --color-border: 0 0 0;
-    --color-text: 100 255 255;
-    --color-text-second: 114 120 78;
-    --color-text-command: 224 22 230;
-    --color-text-cl: 0 0 0;
+    --color-text: 191 191 191;
+    --color-text-second: 3 166 60;
+    --color-text-command: 4 217 57;
+    --color-text-cl: 199 255 237;
+  }
+  .theme-adventure {
+    --color-background: 31 29 67;
+    --color-caret: 243 221 195;
+    --color-cl-user: 100 89 143;
+    --color-cl-path: 243 221 195;
+    --color-border: 0 0 0;
+    --color-text: 243 221 195;
+    --color-text-second: 232 195 71;
+    --color-text-command: 234 106 96;
+    --color-text-cl: 5 4 4;
+  }
+  .theme-elementary {
+    --color-background: 16 16 16;
+    --color-caret: 242 242 242;
+    --color-cl-user: 93 93 93;
+    --color-cl-path: 242 242 242;
+    --color-border: 0 0 0;
+    --color-text: 242 242 242;
+    --color-text-second: 232 195 71;
+    --color-text-command: 216 46 77;
+    --color-text-cl: 141 199 68;
   }
 }
