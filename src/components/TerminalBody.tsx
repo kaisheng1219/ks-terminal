@@ -14,7 +14,7 @@ const TerminalBody = () => {
   return (
     <div
       ref={bodyRef}
-      class="flex grow flex-col overflow-scroll rounded-b-lg bg-skin-background/25 p-4 backdrop-blur-3xl"
+      class="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-skin-background flex grow flex-col overflow-scroll rounded-b-lg bg-skin-background/25 p-4 backdrop-blur-3xl"
     >
       <TerminalBanner />
       <TerminalContent scrollIntoView={scrollIntoView} />
